@@ -4,5 +4,7 @@ var gzippo = require('gzippo');
 var app = express();
 //app.use(express.logger());
 app.use(gzippo.staticGzip('' + __dirname));
+app.use(app.router);
+app.get('*', routes.index);
 var server = http.createServer(app);
 server.listen(process.env.PORT || 5000);
