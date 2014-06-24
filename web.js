@@ -5,6 +5,8 @@ var app = express();
 //app.use(express.logger());
 app.use(gzippo.staticGzip('' + __dirname));
 app.use(app.router);
-app.get('*', routes.index);
+app.get('*', function(req, res) {
+	res.sendfile(__dirname + '/index.html');
+});
 var server = http.createServer(app);
 server.listen(process.env.PORT || 5000);
