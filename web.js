@@ -4,8 +4,9 @@ var gzippo = require('gzippo');
 var app = express();
 //app.use(express.logger());
 app.use(gzippo.staticGzip('' + __dirname));
-app.use(function(req, res) {
-	res.sendfile(__dirname + '/index.html');
+app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendfile('index.html', { root: __dirname });
 });
 var server = http.createServer(app);
 server.listen(process.env.PORT || 5000);
